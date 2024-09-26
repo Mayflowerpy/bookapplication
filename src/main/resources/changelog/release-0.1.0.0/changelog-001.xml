@@ -44,33 +44,15 @@
                 <tableExists tableName="author"/>
         </preConditions>
         <createTable remarks="Отношение авторов к книгам" tableName="author_book_relation">
-            <column autoIncrement="false" name="author_id" remarks="Идентификатор автора" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="author_ref_pkey"/>
+            <column name="author_id" type="BIGINT">
+                <constraints nullable="false"/>
             </column>
-            <column autoIncrement="false" name="book_id" remarks="Идентификатор книги" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="book_ref_pkey"/>
+            <column name="book_id" type="BIGINT">
+                <constraints nullable="false"/>
             </column>
+            <foreignKeyConstraint baseColumnNames="author_id" referencedTableName="author" referencedColumnNames="id"/>
+            <foreignKeyConstraint baseColumnNames="book_id" referencedTableName="book" referencedColumnNames="id"/>
         </createTable>
-    </changeSet>
-
-    <changeSet id="1.00.01.004.RELATION_TABLE" author="vshilov">
-        <preConditions onFail="MARK_RAN">
-            <tableExists tableName="author_book_relation"/>
-        </preConditions>
-        <addForeignKeyConstraint baseColumnNames="author_id" baseTableName="author_book_relation"
-                                 constraintName="author_fk" deferrable="false"
-                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="id" referencedTableName="author"/>
-    </changeSet>
-
-    <changeSet id="1.00.01.005.RELATION_TABLE" author="vshilov">
-        <preConditions onFail="MARK_RAN">
-            <tableExists tableName="author_book_relation"/>
-        </preConditions>
-        <addForeignKeyConstraint baseColumnNames="book_id" baseTableName="author_book_relation"
-                                 constraintName="book_fk" deferrable="false"
-                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="id" referencedTableName="book"/>
     </changeSet>
 
 </databaseChangeLog>
