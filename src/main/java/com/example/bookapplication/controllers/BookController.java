@@ -1,6 +1,5 @@
 package com.example.bookapplication.controllers;
 
-import com.example.bookapplication.entity.Author;
 import com.example.bookapplication.entity.Book;
 import com.example.bookapplication.service.BookService;
 import com.example.bookapplication.util.ResponseUtils;
@@ -37,8 +36,12 @@ public class BookController {
 
     @GetMapping("/getBooksByAuthor")
     @Operation(summary = "getBooksByAuthor", description = "Возвращает список книг по автору")
-    public ResponseEntity<List<Book>> getBooksByAuthor(@RequestBody Author author) {
-        return new ResponseEntity<>(bookService.getBooksByAuthor(author), HttpStatus.OK);
+    public ResponseEntity<List<Book>> getBooksByAuthor(@RequestBody String name) {
+        List<Book> books = bookService.getBooksByAuthorName(name);
+        if (books.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(books, HttpStatus.OK);
     }
 
     @PostMapping("/saveBook")

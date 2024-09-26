@@ -40,8 +40,12 @@ public class AuthorController {
     }
 
     @GetMapping("/getAuthor")
-    @Operation(summary = "GetAuthorByName", description = "Возвращает автора по имени")
+    @Operation(summary = "getAuthor", description = "Возвращает автора по имени")
     public ResponseEntity<Author> getAuthor(@RequestParam String name) {
-        return new ResponseEntity<>(authorService.getAuthorByName(name), HttpStatus.OK);
+        Author author = authorService.getAuthorByName(name);
+        if (author == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(author, HttpStatus.OK);
     }
 }

@@ -1,6 +1,5 @@
 package com.example.bookapplication.service;
 
-import com.example.bookapplication.entity.Author;
 import com.example.bookapplication.entity.Book;
 import com.example.bookapplication.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +10,8 @@ import java.util.List;
 
 @Service
 public class BookServiceImpl implements BookService {
-    private final BookRepository bookRepository;
-
     @Autowired
-    public BookServiceImpl(BookRepository bookRepository) {
-        this.bookRepository = bookRepository;
-    }
+    private BookRepository bookRepository;
 
     @Override
     @Transactional
@@ -26,8 +21,8 @@ public class BookServiceImpl implements BookService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Book> getBooksByAuthor(Author author) {
-        return bookRepository.getBooksByAuthor(author);
+    public List<Book> getBooksByAuthorName(String authorName) {
+        return bookRepository.findBooksByAuthorName(authorName);
     }
 
     @Override
