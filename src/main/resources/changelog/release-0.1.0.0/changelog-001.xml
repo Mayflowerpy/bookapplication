@@ -1,0 +1,76 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+        http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="1.00.01.001.AUTHOR_TABLE" author="vshilov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="author_table"/>
+            </not>
+        </preConditions>
+        <createTable remarks="Таблица авторов" tableName="author">
+            <column autoIncrement="true" name="id" remarks="Идентификатор" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_author"/>
+            </column>
+            <column name="name" remarks="Имя автора" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.00.01.002.BOOK_TABLE" author="vshilov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="book"/>
+            </not>
+        </preConditions>
+        <createTable remarks="соотношение юзеров к ролям" tableName="book">
+            <column autoIncrement="true" name="id" remarks="Идентификатор" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_book_table"/>
+            </column>
+            <column name="title" remarks="Наименование книги" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.00.01.003.RELATION_TABLE" author="vshilov">
+        <preConditions onFail="MARK_RAN">
+                <tableExists tableName="book"/>
+                <tableExists tableName="author"/>
+        </preConditions>
+        <createTable remarks="Отношение авторов к книгам" tableName="author_book_relation">
+            <column autoIncrement="false" name="author_id" remarks="Идентификатор автора" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="author_ref_pkey"/>
+            </column>
+            <column autoIncrement="false" name="book_id" remarks="Идентификатор книги" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="book_ref_pkey"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.00.01.004.RELATION_TABLE" author="vshilov">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="author_book_relation"/>
+        </preConditions>
+        <addForeignKeyConstraint baseColumnNames="author_id" baseTableName="author_book_relation"
+                                 constraintName="author_fk" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="author"/>
+    </changeSet>
+
+    <changeSet id="1.00.01.005.RELATION_TABLE" author="vshilov">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="author_book_relation"/>
+        </preConditions>
+        <addForeignKeyConstraint baseColumnNames="book_id" baseTableName="author_book_relation"
+                                 constraintName="book_fk" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="book"/>
+    </changeSet>
+
+</databaseChangeLog>
