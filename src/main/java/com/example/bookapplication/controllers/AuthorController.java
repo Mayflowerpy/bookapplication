@@ -3,19 +3,22 @@ package com.example.bookapplication.controllers;
 import com.example.bookapplication.entity.Author;
 import com.example.bookapplication.service.AuthorService;
 import com.example.bookapplication.util.ResponseUtils;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @RequestMapping("/author")
+@Tag(name = "Author Controller", description = "REST APIs для сущности Автор")
 public class AuthorController {
     final AuthorService authorService;
 
@@ -25,6 +28,7 @@ public class AuthorController {
     }
 
     @PostMapping("/saveAuthor")
+    @Operation(summary = "saveAuthor", description = "Сохраняет автора")
     public ResponseEntity<String> saveAuthor(@RequestBody Author author,
                                              BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -36,6 +40,7 @@ public class AuthorController {
     }
 
     @GetMapping("/getAuthor")
+    @Operation(summary = "GetAuthorByName", description = "Возвращает автора по имени")
     public ResponseEntity<Author> getAuthor(@RequestParam String name) {
         return new ResponseEntity<>(authorService.getAuthorByName(name), HttpStatus.OK);
     }

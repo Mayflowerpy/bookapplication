@@ -4,6 +4,8 @@ import com.example.bookapplication.entity.Author;
 import com.example.bookapplication.entity.Book;
 import com.example.bookapplication.service.BookService;
 import com.example.bookapplication.util.ResponseUtils;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/book")
+@Tag(name = "Book Controller", description = "REST APIs для сущности Книга")
 public class BookController {
     final BookService bookService;
 
@@ -27,16 +30,19 @@ public class BookController {
     }
 
     @GetMapping("/getAllBooks")
+    @Operation(summary = "getAllBooks", description = "Возвращает все книги")
     public ResponseEntity<List<Book>> getAllBooks() {
         return new ResponseEntity<>(bookService.getAllBooks(), HttpStatus.OK);
     }
 
     @GetMapping("/getBooksByAuthor")
+    @Operation(summary = "getBooksByAuthor", description = "Возвращает список книг по автору")
     public ResponseEntity<List<Book>> getBooksByAuthor(@RequestBody Author author) {
         return new ResponseEntity<>(bookService.getBooksByAuthor(author), HttpStatus.OK);
     }
 
     @PostMapping("/saveBook")
+    @Operation(summary = "saveBook", description = "Сохраняет книгу")
     public ResponseEntity<String> saveBook(@RequestBody Book book,
                                            BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
