@@ -14,6 +14,7 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -58,6 +59,12 @@ public class BookRepositoryIntegrationTest {
     void testFindAllBooks() {
         List<Book> books = bookRepository.findAll();
         assertThat(books).isNotEmpty();
+    }
+
+    @Test
+    void testFindByTitle() {
+        Optional<Book> book = bookRepository.findByTitle("Book");
+        assertThat(book.isPresent());
     }
 
     @Test
