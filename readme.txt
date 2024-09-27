@@ -4,7 +4,7 @@
 
 Апишки
 1. Swagger
-http://localhost:8080/api/bookapp/swagger-ui.html
+http://localhost:8088/api/bookapp/swagger-ui.html
 
 2. Получение всех книг GET
 http://localhost:8080/api/bookapp/book/getAllBooks
@@ -13,17 +13,17 @@ http://localhost:8080/api/bookapp/book/getAllBooks
 http://localhost:8080/api/bookapp/book/saveBook
 BODY:
 {
-    "title": "Название книги",
+    "title": "Книга",
     "authorList": [
         {
-            "name": "Автор книги"
+            "name": "Автор"
         }
     ]
 }
 
 4. Получить автора по имени GET
 
-http://localhost:8080/api/bookapp/author/getAuthor?name=имя
+http://localhost:8080/api/bookapp/author/getAuthor?name=Автор
 
 5. Создать нового автора POST
 http://localhost:8080/api/bookapp/author/saveAuthor
@@ -32,13 +32,13 @@ BODY:
     "name": "Автор",
     "books": [
         {
-            "title": "Книга автора"
+            "title": "Книга"
         }
     ]
 }
 
 6. Получить книги по автору GET
- http:/localhost:8080//api/bookapp/author/book/getBooksByAuthor?name=имя
+http://localhost:8080/api/bookapp/book/getBooksByAuthor?name=Автор
 
 
 Прочее:

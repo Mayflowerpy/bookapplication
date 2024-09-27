@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -37,7 +38,7 @@ public class BookController {
 
     @GetMapping("/getBooksByAuthor")
     @Operation(summary = "getBooksByAuthor", description = "Возвращает список книг по автору")
-    public ResponseEntity<List<Book>> getBooksByAuthor(@RequestBody String name) {
+    public ResponseEntity<List<Book>> getBooksByAuthor(@RequestParam String name) {
         List<Book> books = bookService.getBooksByAuthorName(name);
         if (books.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

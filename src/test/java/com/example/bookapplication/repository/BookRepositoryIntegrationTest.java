@@ -69,7 +69,7 @@ public class BookRepositoryIntegrationTest {
 
     @Test
     void testFindBooksByAuthor() {
-        List<Book> books = bookRepository.findBooksByAuthorName("Author");
+        List<Book> books = bookRepository.findBooksByAuthorName("Author2");
         assertThat(books).isNotEmpty();
         assertThat(books.get(0).getTitle()).isEqualTo("Book");
     }
