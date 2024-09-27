@@ -1,5 +1,7 @@
 package com.example.bookapplication.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,6 +25,9 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIdentityInfo( // Для решения циклической зависимости
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Author implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,6 +38,5 @@ public class Author implements Serializable {
     private String name;
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "authorList")
-//    @JsonBackReference
     private List<Book> bookList = new ArrayList<>();
 }

@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,7 +45,7 @@ public class BookController {
         return new ResponseEntity<>(books, HttpStatus.OK);
     }
 
-    @PostMapping("/saveBook")
+    @PostMapping(value = "/saveBook", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "saveBook", description = "Сохраняет книгу")
     public ResponseEntity<String> saveBook(@RequestBody Book book,
                                            BindingResult bindingResult) {
