@@ -1,6 +1,6 @@
 package com.example.bookapplication.controllers;
 
-import com.example.bookapplication.entity.Book;
+import com.example.bookapplication.dto.BookDTO;
 import com.example.bookapplication.service.BookService;
 import com.example.bookapplication.util.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,14 +30,14 @@ public class BookController {
 
     @GetMapping("/getAllBooks")
     @Operation(summary = "getAllBooks", description = "Возвращает все книги")
-    public ResponseEntity<List<Book>> getAllBooks() {
+    public ResponseEntity<List<BookDTO>> getAllBooks() {
         return new ResponseEntity<>(bookService.getAllBooks(), HttpStatus.OK);
     }
 
     @GetMapping("/getBooksByAuthor")
     @Operation(summary = "getBooksByAuthor", description = "Возвращает список книг по автору")
-    public ResponseEntity<List<Book>> getBooksByAuthor(@RequestBody String name) {
-        List<Book> books = bookService.getBooksByAuthorName(name);
+    public ResponseEntity<List<BookDTO>> getBooksByAuthor(@RequestBody String name) {
+        List<BookDTO> books = bookService.getBooksByAuthorName(name);
         if (books.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -46,7 +46,7 @@ public class BookController {
 
     @PostMapping("/saveBook")
     @Operation(summary = "saveBook", description = "Сохраняет книгу")
-    public ResponseEntity<String> saveBook(@RequestBody Book book,
+    public ResponseEntity<String> saveBook(@RequestBody BookDTO book,
                                            BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(ResponseUtils.getErrorsFromBindingResult(bindingResult),

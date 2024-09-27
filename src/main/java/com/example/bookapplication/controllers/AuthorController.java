@@ -1,6 +1,6 @@
 package com.example.bookapplication.controllers;
 
-import com.example.bookapplication.entity.Author;
+import com.example.bookapplication.dto.AuthorDTO;
 import com.example.bookapplication.service.AuthorService;
 import com.example.bookapplication.util.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
@@ -29,7 +29,7 @@ public class AuthorController {
 
     @PostMapping("/saveAuthor")
     @Operation(summary = "saveAuthor", description = "Сохраняет автора")
-    public ResponseEntity<String> saveAuthor(@RequestBody Author author,
+    public ResponseEntity<String> saveAuthor(@RequestBody AuthorDTO author,
                                              BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(ResponseUtils.getErrorsFromBindingResult(bindingResult),
@@ -41,8 +41,8 @@ public class AuthorController {
 
     @GetMapping("/getAuthor")
     @Operation(summary = "getAuthor", description = "Возвращает автора по имени")
-    public ResponseEntity<Author> getAuthor(@RequestParam String name) {
-        Author author = authorService.getAuthorByName(name);
+    public ResponseEntity<AuthorDTO> getAuthor(@RequestParam String name) {
+        AuthorDTO author = authorService.getAuthorByName(name);
         if (author == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

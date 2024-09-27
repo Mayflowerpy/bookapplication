@@ -1,36 +1,32 @@
 package com.example.bookapplication.service;
 
-import com.example.bookapplication.entity.Author;
-import com.example.bookapplication.entity.Book;
+import com.example.bookapplication.dto.AuthorDTO;
+import com.example.bookapplication.mapper.AuthorMapper;
 import com.example.bookapplication.repository.AuthorRepository;
-import com.example.bookapplication.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
 public class AuthorServiceImpl implements AuthorService {
-    @Autowired
-    private BookRepository bookRepository;
+
+    private final AuthorRepository authorRepository;
+    private final AuthorMapper authorMapper;
 
     @Autowired
-    private AuthorRepository authorRepository;
+    public AuthorServiceImpl(AuthorMapper authorMapper, AuthorRepository authorRepository) {
+        this.authorMapper = authorMapper;
+        this.authorRepository = authorRepository;
+    }
 
     @Transactional
-    public void saveAuthor(Author author) {
-        List<Book> books = author.getBookList().stream()
-                .map(book -> bookRepository.findByTitle(book.getTitle()).orElseGet(() -> bookRepository.save(book)))
-                .collect(Collectors.toList());
-        author.setBookList(books);
-        authorRepository.saveAndFlush(author);
+    public void saveAuthor(AuthorDTO author) {
+        authorRepository.saveAndFlush(authorMapper.toEntity(author));
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Author getAuthorByName(String name) {
-        return authorRepository.findByName(name).orElse(null);
+    public AuthorDTO getAuthorByName(String name) {
+        return authorMapper.toDTO(authorRepository.findByName(name).orElse(null));
     }
 }

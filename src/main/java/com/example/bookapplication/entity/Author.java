@@ -14,7 +14,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -34,5 +33,5 @@ public class Author implements Serializable {
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "authorList")
 //    @JsonBackReference
-    private List<Book> bookList = new ArrayList<>();
+    private List<Book> bookList;
 }
