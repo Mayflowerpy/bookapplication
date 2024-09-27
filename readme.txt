@@ -2,7 +2,6 @@
 1. mvn clean package
 2. Затем скрипт докера ./build_and_run.ps1
 
-
 Апишки
 1. Swagger
 http://localhost:8088/api/bookapp/swagger-ui.html
@@ -42,11 +41,9 @@ BODY:
  http:/localhost:8080//api/bookapp/author/book/getBooksByAuthor?name=имя
 
 
-
 Ошибки:
  1. АПИ getBooksByAuthor работает некорректно.
 
- 2. В ветке ext/mapperDTO пыталя сделать mapper и dto, для избавления от циклических зависимостей,
+Прочее:
+ 1. В ветке ext/mapperDTO пытался сделать mapper и dto, для избавления от циклических зависимостей,
  но там ошибка преобразования листа в сущности, mapstruct его не видит, и решил через JsonIdentityInfo.
-
-
