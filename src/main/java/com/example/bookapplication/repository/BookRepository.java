@@ -13,8 +13,8 @@ import java.util.Optional;
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
 
-    //    @EntityGraph(attributePaths = "authorList")
-    @Query("SELECT b FROM Book b JOIN b.authorList a WHERE a.name = :name")
+        @EntityGraph(attributePaths = "authorList")
+    @Query("SELECT b FROM Book b, Author a WHERE a.name = :name")
     List<Book> findBooksByAuthorName(@Param("name") String name);
     Optional<Book> findByTitle(String title);
 }

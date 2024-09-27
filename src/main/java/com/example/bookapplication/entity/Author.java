@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,7 +23,6 @@ import java.util.List;
 @Entity
 @Table(name = "author", schema = "public")
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIdentityInfo( // Для решения циклической зависимости
@@ -37,6 +37,6 @@ public class Author implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "authorList")
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "authorList", fetch = FetchType.LAZY)
     private List<Book> bookList = new ArrayList<>();
 }

@@ -68,9 +68,7 @@ public class BookRepositoryIntegrationTest {
     }
 
     @Test
-    @Disabled
     void testFindBooksByAuthor() {
-        Author author = authorRepository.findByName("Author").orElse(null);
         List<Book> books = bookRepository.findBooksByAuthorName("Author");
         assertThat(books).isNotEmpty();
         assertThat(books.get(0).getTitle()).isEqualTo("Book");

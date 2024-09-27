@@ -4,7 +4,7 @@
 
 Апишки
 1. Swagger
-http://localhost:8088/api/bookapp/swagger-ui.html
+http://localhost:8080/api/bookapp/swagger-ui.html
 
 2. Получение всех книг GET
 http://localhost:8080/api/bookapp/book/getAllBooks
@@ -41,9 +41,6 @@ BODY:
  http:/localhost:8080//api/bookapp/author/book/getBooksByAuthor?name=имя
 
 
-Ошибки:
- 1. АПИ getBooksByAuthor работает некорректно.
-
 Прочее:
  1. В ветке ext/mapperDTO пытался сделать mapper и dto, для избавления от циклических зависимостей,
- но там ошибка преобразования листа в сущности, mapstruct его не видит, и решил через JsonIdentityInfo.
+ но там ошибка преобразования листа в сущности, mapstruct его не видит, и решил проблему через JsonIdentityInfo.
