@@ -44,3 +44,9 @@ http://localhost:8080/api/bookapp/book/getBooksByAuthor?name=Автор
 Прочее:
  1. В ветке ext/mapperDTO пытался сделать mapper и dto, для избавления от циклических зависимостей,
  но там ошибка преобразования листа в сущности, mapstruct его не видит, и решил проблему через JsonIdentityInfo.
+
+2.метод getAuthor возвращает ошибку, если имя не уникально
+  имя в сущности автор не уникальное, и если добавить несколько сущностей с едентичными именами, при запросе возвращается ошибка
+Servlet.service() for servlet [dispatcherServlet] in context with path [/api/bookapp] threw exception [Request processing failed:
+    org.springframework.dao.IncorrectResultSizeDataAccessException: Query did not return a unique result: 5 results were returned] with root cause
+app-1       | org.hibernate.NonUniqueResultException: Query did not return a unique result: 5 results were returned
