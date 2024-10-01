@@ -12,8 +12,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
@@ -28,6 +28,7 @@ import java.util.List;
 @JsonIdentityInfo( // Для решения циклической зависимости
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id")
+@EqualsAndHashCode
 public class Author implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

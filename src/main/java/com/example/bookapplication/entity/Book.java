@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
@@ -19,6 +20,7 @@ import java.util.List;
 @JsonIdentityInfo( // Для решения циклической зависимости
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id")
+@EqualsAndHashCode
 public class Book implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
